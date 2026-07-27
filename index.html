@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>জয়া টেক - কর্মী নিয়োগ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #fff5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            max-width: 700px;
+            width: 100%;
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(200, 0, 0, 0.15);
+            border: 2px solid #cc0000;
+            transition: 0.3s;
+        }
+        .container:hover {
+            box-shadow: 0 20px 50px rgba(200, 0, 0, 0.25);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 3px solid #cc0000;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            color: #cc0000;
+            font-size: 36px;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        .header h1 span {
+            background: #cc0000;
+            color: white;
+            padding: 0 12px;
+            border-radius: 8px;
+        }
+        .header p {
+            color: #555;
+            font-size: 16px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #990000;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: 0.3s;
+            background: #fefafa;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #cc0000;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.1);
+        }
+        .form-group input[type="file"] {
+            padding: 10px;
+            background: white;
+        }
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+        .row .form-group {
+            flex: 1;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #cc0000;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            box-shadow: 0 8px 0 #880000;
+        }
+        .submit-btn:hover {
+            background: #b30000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 0 #880000;
+        }
+        .submit-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #880000;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            font-size: 16px;
+        }
+        .status.success {
+            background: #e6ffed;
+            color: #006600;
+            border: 2px solid #00aa00;
+            display: block;
+        }
+        .status.error {
+            background: #ffe6e6;
+            color: #cc0000;
+            border: 2px solid #cc0000;
+            display: block;
+        }
+        .note {
+            font-size: 13px;
+            color: #888;
+            margin-top: 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 18px;
+        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .container {
+                padding: 25px 18px;
+            }
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>জয়া <span>টেক</span></h1>
+            <p>💼 কর্মী নিয়োগ ফর্ম</p>
+        </div>
+
+        <form id="applicationForm">
+            <!-- নাম -->
+            <div class="form-group">
+                <label>👤 নাম (পূর্ণ)</label>
+                <input type="text" id="name" placeholder="আপনার নাম লিখুন" required>
+            </div>
+
+            <!-- বয়স -->
+            <div class="form-group">
+                <label>🎂 বয়স</label>
+                <input type="number" id="age" placeholder="বয়স (যেমন: ২৫)" min="18" max="65" required>
+            </div>
+
+            <!-- ছবি -->
+            <div class="form-group">
+                <label>🖼️ ছবি আপলোড</label>
+                <input type="file" id="photo" accept="image/*" required>
+            </div>
+
+            <!-- ঠিকানা: জেলা + উপজেলা একসাথে -->
+            <div class="row">
+                <div class="form-group">
+                    <label>🏛️ জেলা</label>
+                    <select id="district" required>
+                        <option value="">-- জেলা নির্বাচন করুন --</option>
+                        <option value="ফরিদপুর">ফরিদপুর</option>
+                        <option value="মাগুরা">মাগুরা</option>
+                        <option value="রাজবাড়ী">রাজবাড়ী</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>📍 উপজেলা / থানা</label>
+                    <select id="upazila" required>
+                        <option value="">-- প্রথমে জেলা নির্বাচন করুন --</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- সম্পূর্ণ ঠিকানা (বাড়ির নাম/রাস্তা) -->
+            <div class="form-group">
+                <label>🏠 বিস্তারিত ঠিকানা</label>
+                <input type="text" id="address" placeholder="বাড়ি নাম্বার, রাস্তা, গ্রাম" required>
+            </div>
+
+            <button type="submit" class="submit-btn">✅ সাবমিট করুন</button>
+            <div id="statusMessage" class="status"></div>
+        </form>
+
+        <div class="note">
+            ⚡ আপনার তথ্য নিরাপদে টেলিগ্রামে পাঠানো হবে
+        </div>
+    </div>
+
+    <script>
+        // ----- উপজেলা ডেটা -----
+        const upazilaData = {
+            'ফরিদপুর': ['বোয়ালমারী', 'মধুখালি', 'ফরিদপুর সদর', 'নগরকান্দা', 'সদরপুর'],
+            'মাগুরা': ['মাগুরা সদর', 'শ্রীপুর', 'মহম্মদপুর'],
+            'রাজবাড়ী': ['রাজবাড়ী সদর', 'গোয়ালন্দ', 'পাংশা', 'বালিয়াকান্দি']
+        };
+
+        const districtSelect = document.getElementById('district');
+        const upazilaSelect = document.getElementById('upazila');
+
+        // জেলা পরিবর্তন করলে উপজেলা আপডেট হবে
+        districtSelect.addEventListener('change', function() {
+            const selectedDistrict = this.value;
+            upazilaSelect.innerHTML = ''; // পুরানো অপশন মুছে ফেলা
+
+            if (selectedDistrict && upazilaData[selectedDistrict]) {
+                const upazilas = upazilaData[selectedDistrict];
+                // প্রথম অপশন ডিফল্ট
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = '-- উপজেলা নির্বাচন করুন --';
+                upazilaSelect.appendChild(defaultOption);
+
+                upazilas.forEach(up => {
+                    const option = document.createElement('option');
+                    option.value = up;
+                    option.textContent = up;
+                    upazilaSelect.appendChild(option);
+                });
+            } else {
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = '-- প্রথমে জেলা নির্বাচন করুন --';
+                upazilaSelect.appendChild(defaultOption);
+            }
+        });
+
+        // ----- ফর্ম সাবমিট -----
+        const form = document.getElementById('applicationForm');
+        const statusDiv = document.getElementById('statusMessage');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // ইনপুট থেকে ডেটা নেওয়া
+            const name = document.getElementById('name').value.trim();
+            const age = document.getElementById('age').value.trim();
+            const photoFile = document.getElementById('photo').files[0];
+            const district = document.getElementById('district').value;
+            const upazila = document.getElementById('upazila').value;
+            const address = document.getElementById('address').value.trim();
+
+            // ভ্যালিডেশন
+            if (!name || !age || !photoFile || !district || !upazila || !address) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ দয়া করে সব ঘর পূরণ করুন!';
+                return;
+            }
+
+            // ফাইলকে base64 এ কনভার্ট
+            const reader = new FileReader();
+            reader.readAsDataURL(photoFile);
+            reader.onload = async function() {
+                const photoBase64 = reader.result; // Base64 string
+
+                // টেলিগ্রামের জন্য মেসেজ তৈরি
+                const message = `
+📝 **নতুন আবেদন** 
+👤 নাম: ${name}
+🎂 বয়স: ${age}
+🏛️ জেলা: ${district}
+📍 উপজেলা: ${upazila}
+🏠 ঠিকানা: ${address}
+🖼️ ছবি: (Base64 এনকোড করা)
+                `;
+
+                // টেলিগ্রাম বটে পাঠানোর জন্য ডেটা
+                const botToken = '8950608981:AAF3_rQOdgO-oQ7Lw2-IRfG8G2wCkLhXU1o';
+                const chatId = '1619670668';
+                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+                try {
+                    // প্রথমে টেক্সট মেসেজ পাঠানো
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.ok) {
+                        // টেক্সট পাঠানোর পর ছবি পাঠানো
+                        const photoUrl = `https://api.telegram.org/bot${botToken}/sendPhoto`;
+                        const photoResponse = await fetch(photoUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: chatId,
+                                photo: photoBase64,
+                                caption: `📸 ${name} এর ছবি`
+                            })
+                        });
+
+                        const photoResult = await photoResponse.json();
+
+                        if (photoResult.ok) {
+                            statusDiv.className = 'status success';
+                            statusDiv.textContent = '✅ সফলভাবে জমা হয়েছে! টেলিগ্রামে চেক করুন।';
+                            form.reset(); // ফর্ম খালি করা
+                            // উপজেলা রিসেট
+                            upazilaSelect.innerHTML = '<option value="">-- প্রথমে জেলা নির্বাচন করুন --</option>';
+                        } else {
+                            statusDiv.className = 'status error';
+                            statusDiv.textContent = '⚠️ ছবি পাঠাতে সমস্যা হয়েছে, তবে তথ্য পাঠানো হয়েছে।';
+                        }
+                    } else {
+                        statusDiv.className = 'status error';
+                        statusDiv.textContent = '❌ টেলিগ্রামে পাঠাতে ব্যর্থ! চেষ্টা করুন আবার।';
+                    }
+                } catch (error) {
+                    statusDiv.className = 'status error';
+                    statusDiv.textContent = '⚠️ নেটওয়ার্ক সমস্যা! পরীক্ষা করে আবার চেষ্টা করুন।';
+                    console.error(error);
+                }
+            };
+
+            reader.onerror = function() {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '⚠️ ছবি পড়তে সমস্যা হয়েছে!';
+            };
+        });
+    </script>
+
+</body>
+              </html>
